@@ -28,9 +28,7 @@ document.onkeydown = function (event) {
 export default {
   name: 'Table',
   data () {
-    return {
-      iff: ''
-    }
+    return {}
   },
   mounted () {
     this.start()
@@ -89,20 +87,14 @@ export default {
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
           break
         case 4:
-          // this.$refs.point.style.left = sharp.offsetLeft + 37.5 + 15 + 'px'
-          // this.$refs.point.style.top = sharp.offsetTop + sharp.clientHeight + 15 + 'px'
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
           break
         case 5:
-          // this.$refs.point.style.left = sharp.offsetLeft + 37.5 + 45 + 'px'
-          // this.$refs.point.style.top = sharp.offsetTop + sharp.clientHeight + 15 + 'px'
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
           break
         case 6:
-          // this.$refs.point.style.left = sharp.offsetLeft + 37.5 + 75 + 'px'
-          // this.$refs.point.style.top = sharp.offsetTop + sharp.clientHeight + 15 + 'px'
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
           round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
@@ -159,9 +151,7 @@ export default {
               break
           }
         } else {
-          // 是否停止下落
-          ifmove = ''
-          this.iif = 'stop'
+          ifmove = 0
           clearInterval(i)
         }
       }, 1000)
