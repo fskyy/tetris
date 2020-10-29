@@ -17,6 +17,7 @@ export default {
   name: 'Table',
   data () {
     return {
+      activiedSharp: ''
     }
   },
   mounted () {
@@ -27,8 +28,8 @@ export default {
       const sharpper = this.create()
       const sharp = sharpper[0]
       const type = sharpper[1]
-      const round = this.setRound(sharp, type)
-      sharp.classList.add('activied')
+      const round = this.downRound(sharp, type)
+      this.keydown(sharpper)
       // 获取新方块周围
       let ifEnd
       for (let index = 0; index < round.length; index++) {
@@ -41,7 +42,7 @@ export default {
         alert('game over')
       } else {
         const fall = setInterval(() => {
-          let round = this.setRound(sharp, type)
+          let round = this.downRound(sharp, type)
           // 获取当前方块周围
           let ifmove = ''
           for (let index = 0; index < round.length; index++) {
@@ -55,7 +56,6 @@ export default {
             round = []
           } else {
             ifmove = 0
-            sharp.classList.remove('activied')
             clearInterval(fall)
             this.start()
           }
@@ -96,8 +96,8 @@ export default {
       const sharpper = [sharp, type]
       return sharpper
     },
-    // 设置周围
-    setRound (sharp, type) {
+    // 设置下周围
+    downRound (sharp, type) {
       const round = []
       switch (type) {
         case 0:
@@ -140,15 +140,89 @@ export default {
       }
       return round
     },
+    // 设置左周围
+    leftRound (sharp, type) {
+      const left = sharp.offsetLeft + 37.5
+      const top = sharp.offsetTop
+      const round = []
+      switch (type) {
+        case 0:
+          // 设置O形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 45).className)
+          break
+        case 1:
+          // 设置I形周围
+          round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 75).className)
+          round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 105).className)
+          break
+        case 2:
+          // 设置Z形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + 45).className)
+          break
+        case 3:
+          // 设置S形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 45, sharp.offsetTop + 45).className)
+          break
+        case 4:
+          // 设置J形周围
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 45, top + 75).className)
+          break
+        case 5:
+          // 设置L形周围
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 75).className)
+          break
+        case 6:
+          // 设置T形周围
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top - 15).className)
+          break
+      }
+      return round
+    },
+    // 设置右周围
+    // 监听键盘
+    keydown (sharpper) {
+      const _this = this
+      document.onkeydown = function (e) {
+        const key = window.event.keyCode
+        if (key === 38) {
+          console.log(sharpper[0])
+        } else if (key === 37) {
+          const round = _this.leftRound(sharpper[0], sharpper[1])
+          let ifStop
+          for (let index = 0; index < round.length; index++) {
+            if (round[index] !== 'view') {
+              ifStop = true
+            }
+          }
+          console.log(round)
+          if (!ifStop) {
+            _this.left(sharpper[0])
+          }
+        } else if (key === 39) {
+          const left = sharpper[0].offsetLeft
+          sharpper[0].style.left = left + 30 + 'px'
+        }
+      }
+    },
     // 向下移动
     down (sharpper) {
       const sharp = sharpper[0]
       sharp.style.top = sharp.offsetTop + 30 + 'px'
     },
     // 向左移动
-    left () {
-      var actived = document.getElementsByClassName('actived')[0]
-      console.log(actived)
+    left (sharp) {
+      const left = sharp.offsetLeft
+      sharp.style.left = left - 30 + 'px'
     }
   }
 }
@@ -158,6 +232,9 @@ export default {
 *{
   margin: 0;
   padding: 0;
+}
+.full{
+  width: 375px;
 }
 .point{
   position: absolute;
