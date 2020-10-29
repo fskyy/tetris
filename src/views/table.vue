@@ -13,18 +13,6 @@
 </template>
 
 <script>
-document.onkeydown = function (event) {
-  var e = event || window.event
-  if (e && e.keyCode === 37) { // 按 ←
-    console.log(e.keyCode)
-  }
-  if (e && e.keyCode === 39) { // 按 →
-    console.log(e.keyCode)
-  }
-  if (e && e.keyCode === 38) {
-    console.log(e.keyCode)
-  }
-}
 export default {
   name: 'Table',
   data () {
@@ -32,70 +20,47 @@ export default {
     }
   },
   mounted () {
-    // this.start()
+    this.start()
   },
   methods: {
     start () {
       const sharpper = this.create()
       const sharp = sharpper[0]
       const type = sharpper[1]
-      const fall = setInterval(() => {
-        let round = []
-        switch (type) {
-          case 0:
-          // 初始化O形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 67.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            break
-          case 1:
-          // 初始化I形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            break
-          case 2:
-          // 初始化Z形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            break
-          case 3:
-          // 初始化S形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 4:
-          // 初始化J形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 5:
-          // 初始化L形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 6:
-          // 初始化T形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
+      const round = this.setRound(sharp, type)
+      sharp.classList.add('activied')
+      // 获取新方块周围
+      let ifEnd
+      for (let index = 0; index < round.length; index++) {
+        if (round[index] !== 'view') {
+          ifEnd = true
         }
-        let ifmove = ''
-        // 判断标白处是否是view
-        for (let index = 0; index < round.length; index++) {
-          if (round[index] !== 'view') {
-            ifmove = 'stop'
+      }
+      // 判断新方块是否溢出，如果溢出gameover，反之goon
+      if (ifEnd) {
+        alert('game over')
+      } else {
+        const fall = setInterval(() => {
+          let round = this.setRound(sharp, type)
+          // 获取当前方块周围
+          let ifmove = ''
+          for (let index = 0; index < round.length; index++) {
+            if (round[index] !== 'view') {
+              ifmove = 'stop'
+            }
           }
-        }
-        if (ifmove !== 'stop') {
-          this.down(sharpper)
-          round = []
-        } else {
-          ifmove = 0
-          clearInterval(fall)
-          this.start()
-        }
-      }, 1000)
+          // 判断当前方块是否到底，如果到底停止并移除activied，反之坠落
+          if (ifmove !== 'stop') {
+            this.down(sharpper)
+            round = []
+          } else {
+            ifmove = 0
+            sharp.classList.remove('activied')
+            clearInterval(fall)
+            this.start()
+          }
+        }, 500)
+      }
     },
     // 创建方块
     create () {
@@ -131,12 +96,56 @@ export default {
       const sharpper = [sharp, type]
       return sharpper
     },
-    // 下坠
+    // 设置周围
+    setRound (sharp, type) {
+      const round = []
+      switch (type) {
+        case 0:
+          // 设置O形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5, sharp.offsetTop + sharp.clientHeight + 1).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 67.5, sharp.offsetTop + sharp.clientHeight + 1).className)
+          break
+        case 1:
+          // 设置I形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5, sharp.offsetTop + sharp.clientHeight + 1).className)
+          break
+        case 2:
+          // 设置Z形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+          break
+        case 3:
+          // 设置S形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
+          break
+        case 4:
+          // 设置J形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          break
+        case 5:
+          // 设置L形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
+          break
+        case 6:
+          // 设置T形周围
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
+          break
+      }
+      return round
+    },
+    // 向下移动
     down (sharpper) {
       const sharp = sharpper[0]
       sharp.style.top = sharp.offsetTop + 30 + 'px'
     },
-
+    // 向左移动
     left () {
       var actived = document.getElementsByClassName('actived')[0]
       console.log(actived)
