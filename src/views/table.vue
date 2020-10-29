@@ -29,12 +29,10 @@ export default {
   name: 'Table',
   data () {
     return {
-      count: 0
     }
   },
   mounted () {
     // this.start()
-    this.recreate()
   },
   methods: {
     start () {
@@ -62,18 +60,21 @@ export default {
           case 3:
           // 初始化S形标白
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
             break
           case 4:
+          // 初始化J形标白
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
             break
           case 5:
+          // 初始化L形标白
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
             break
           case 6:
+          // 初始化T形标白
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
             round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
@@ -88,75 +89,11 @@ export default {
         }
         if (ifmove !== 'stop') {
           this.down(sharpper)
-          this.count++
-          console.log(this.count)
           round = []
         } else {
           ifmove = 0
           clearInterval(fall)
-          this.recreate()
-        }
-      }, 1000)
-    },
-    // recreate
-    recreate () {
-      const sharpper = this.create()
-      const sharp = sharpper[0]
-      const type = sharpper[1]
-      const fall = setInterval(() => {
-        let round = []
-        switch (type) {
-          case 0:
-          // 初始化O形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 67.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            break
-          case 1:
-          // 初始化I形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-            break
-          case 2:
-          // 初始化Z形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            break
-          case 3:
-          // 初始化S形标白
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 4:
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 5:
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-          case 6:
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-            round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
-            break
-        }
-        let ifmove = ''
-        // 判断标白处是否是view
-        for (let index = 0; index < round.length; index++) {
-          if (round[index] !== 'view') {
-            ifmove = 'stop'
-          }
-        }
-        if (ifmove !== 'stop') {
-          this.down(sharpper)
-          this.count++
-          console.log(this.count)
-          round = []
-        } else {
-          ifmove = 0
-          clearInterval(fall)
-          this.recreate()
+          this.start()
         }
       }, 1000)
     },
@@ -195,100 +132,6 @@ export default {
       return sharpper
     },
     // 下坠
-    fall (sharp, type) {
-      var round = []
-      switch (type) {
-        case 0:
-          // 初始化O形标白
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-          break
-        case 1:
-          // 初始化I形标白
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-          break
-        case 2:
-          // 初始化Z形标白
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          break
-        case 3:
-          // 初始化S形标白
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-          break
-        case 4:
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          break
-        case 5:
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-          break
-        case 6:
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
-          break
-      }
-      var i = setInterval(function () {
-        let ifmove = ''
-        // 判断标白处是否是view
-        for (let index = 0; index < round.length; index++) {
-          if (round[index] !== 'view') {
-            ifmove = 'stop'
-          }
-        }
-        // 判断是否停止
-        if (ifmove !== 'stop') {
-          sharp.style.top = sharp.offsetTop + 30 + 'px'
-          round = []
-          switch (type) {
-            case 0:
-              // O形需要一个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-              break
-            case 1:
-              // I形需要一个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.500, sharp.offsetTop + sharp.clientHeight + 1).className)
-              break
-            case 2:
-              // Z形需要三个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-              break
-            case 3:
-              // S形需要三个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-              break
-            case 4:
-              // J形需要二个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-              break
-            case 5:
-              // L形需要二个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-              break
-            case 6:
-              // T形需要三个下方标白
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-              round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
-              break
-          }
-        } else {
-          ifmove = 0
-          clearInterval(i)
-        }
-      }, 1000)
-    },
-
     down (sharpper) {
       const sharp = sharpper[0]
       sharp.style.top = sharp.offsetTop + 30 + 'px'
