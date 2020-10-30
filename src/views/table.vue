@@ -61,7 +61,7 @@ export default {
             clearInterval(fall)
             this.start()
           }
-        }, 500)
+        }, 250)
       }
     },
     // 创建方块
@@ -71,7 +71,7 @@ export default {
       var type = Math.floor(Math.random() * 6)
       sharp = document.createElement('div')
       sharp.classList.add('sharp')
-      sharp.classList.add('S') // ///////////////////////////
+      sharp.classList.add('J') // ///////////////////////////
       // switch (type) {
       //   case 0:
       //     sharp.classList.add('O')
@@ -95,7 +95,7 @@ export default {
       //     sharp.classList.add('T')
       //     break
       // }
-      type = 3 // ////////////////////////
+      type = 4 // ////////////////////////
       view.appendChild(sharp)
       sharp.style.top = '0px'
       this.sharpper = [sharp, type]
@@ -151,6 +151,18 @@ export default {
           // 设置J形周围
           round.push(document.elementFromPoint(left - 15, top + 105).className)
           round.push(document.elementFromPoint(left + 15, top + 105).className)
+          break
+        case 4090:
+          // 设置J90形周围
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
+          round.push(document.elementFromPoint(left - 75, top + 45).className)
+          break
+        case 4180:
+          // 设置J90形周围 写到这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
+          round.push(document.elementFromPoint(left - 75, top + 45).className)
           break
         case 5:
           // 设置L形周围
@@ -220,6 +232,16 @@ export default {
           round.push(document.elementFromPoint(left - 15, top + 45).className)
           round.push(document.elementFromPoint(left - 45, top + 75).className)
           break
+        case 4090:
+          // 设置J90形周围
+          round.push(document.elementFromPoint(left - 105, top - 15).className)
+          round.push(document.elementFromPoint(left - 105, top + 15).className)
+          break
+        case 4180:
+          // 设置J90形周围
+          round.push(document.elementFromPoint(left - 105, top - 15).className)
+          round.push(document.elementFromPoint(left - 105, top + 15).className)
+          break
         case 5:
           // 设置L形周围
           round.push(document.elementFromPoint(left - 15, top + 15).className)
@@ -287,6 +309,11 @@ export default {
           round.push(document.elementFromPoint(left + 45, top + 15).className)
           round.push(document.elementFromPoint(left + 45, top + 45).className)
           round.push(document.elementFromPoint(left + 45, top + 75).className)
+          break
+        case 4090:
+          // 设置J90形周围
+          round.push(document.elementFromPoint(left - 45, top - 15).className)
+          round.push(document.elementFromPoint(left - 15, top - 15).className)
           break
         case 5:
           // 设置L形周围
@@ -357,8 +384,16 @@ export default {
           break
         case 4:
           // 设置J形周围
-          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 45, top + 15).className)
+          round.push(document.elementFromPoint(left - 75, top + 15).className)
+          round.push(document.elementFromPoint(left - 75, top - 15).className)
+          break
+        case 4090:
+          // 设置J形周围
+          round.push(document.elementFromPoint(left - 45, top + 15).className)
           round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 75).className)
           round.push(document.elementFromPoint(left + 45, top + 75).className)
           break
         case 5:
@@ -468,7 +503,60 @@ export default {
               }
               break
             case 4:
-              console.log(sharpper)
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              console.log(round)
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(90deg)'
+                _this.sharpper[1] = 4090
+              }
+              break
+            case 4090:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              console.log(round)
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(180deg)'
+                _this.sharpper[1] = 4180
+              }
+              break
+            case 4180:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              console.log(round)
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(270deg)'
+                _this.sharpper[1] = 4270
+              }
+              break
+            case 4270:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              console.log(round)
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = ''
+                _this.sharpper[1] = 4
+              }
               break
             case 5:
               console.log(sharpper)
