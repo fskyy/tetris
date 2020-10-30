@@ -21,13 +21,9 @@ export default {
     }
   },
   mounted () {
-    // this.start()
-    this.test()
+    this.start()
   },
   methods: {
-    test () {
-
-    },
     start () {
       const sharpper = this.create()
       const sharp = sharpper[0]
@@ -72,6 +68,7 @@ export default {
       let sharp = ''
       const type = Math.floor(Math.random() * 6)
       sharp = document.createElement('div')
+      sharp.classList.add('sharp')
       switch (type) {
         case 0:
           sharp.classList.add('O')
@@ -251,22 +248,7 @@ export default {
       document.onkeydown = function (e) {
         const key = window.event.keyCode
         if (key === 38) { // 上方向键
-          switch (sharpper[1]) {
-            case 0:
-              break
-            case 1:
-              break
-            case 2:
-              break
-            case 3:
-              break
-            case 4:
-              break
-            case 5:
-              break
-            case 6:
-              break
-          }
+          console.log(sharpper[0])
         } else if (key === 37) { // 左方向键
           const round = _this.leftRound(sharpper[0], sharpper[1])
           let ifStop
@@ -339,32 +321,29 @@ export default {
   height: 600px;
   position: relative;
 }
+.sharp{
+  position: absolute;
+  top: 0;
+  left:120px;
+  transform-origin: 0 0;
+}
 /* ****************************************************************************************** */
 .O{
   width: 60px;
   height: 60px;
   background: blue;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 /* ****************************************************************************************** */
 .I{
   width: 30px;
   height: 120px;
   background: Cyan;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 /* ****************************************************************************************** */
 .Z{
   width: 60px;
   height: 30px;
   background: red;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 .Z::before{
   display: block;
@@ -381,9 +360,6 @@ export default {
   width: 60px;
   height: 30px;
   background: green;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 .S::before{
   display: block;
@@ -401,9 +377,6 @@ export default {
   width: 30px;
   height: 90px;
   background: yellow;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 .J:before{
   display: block;
@@ -421,9 +394,6 @@ export default {
   width: 30px;
   height: 90px;
   background: orange;
-  position: absolute;
-  top: 0;
-  left:120px
   }
 .L:before{
   display: block;
@@ -441,9 +411,6 @@ export default {
   width: 90px;
   height: 30px;
   background: purple;
-  position: absolute;
-  top: 0;
-  left:120px
 }
 .T::before{
   display: block;
@@ -455,6 +422,4 @@ export default {
   left: 30px;
   background: purple;
 }
-.rotate90{}
-.rotate{}
 </style>
