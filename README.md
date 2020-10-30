@@ -1,24 +1,9 @@
-# tetris
+# tetris 俄罗斯方块
 
-## Project setup
+## How to run
 ```
-npm install
+安装node.js
+拉下此项目
+在项目根目录cmd执行npm install
+cmd执行npm serve
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
