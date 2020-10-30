@@ -17,19 +17,21 @@ export default {
   name: 'Table',
   data () {
     return {
-      activiedSharp: ''
+      sharpper: []
     }
   },
   mounted () {
     this.start()
   },
   methods: {
+
     start () {
-      const sharpper = this.create()
+      this.create()
+      const sharpper = this.sharpper
       const sharp = sharpper[0]
       const type = sharpper[1]
       const round = this.downRound(sharp, type)
-      this.keydown(sharpper)
+      this.keydown()
       // 获取新方块周围
       let ifEnd
       for (let index = 0; index < round.length; index++) {
@@ -52,7 +54,7 @@ export default {
           }
           // 判断当前方块是否到底，如果到底停止并移除activied，反之坠落
           if (ifmove !== 'stop') {
-            this.down(sharpper)
+            this.down()
             round = []
           } else {
             ifmove = 0
@@ -66,43 +68,46 @@ export default {
     create () {
       const view = this.$refs.view
       let sharp = ''
-      const type = Math.floor(Math.random() * 6)
+      var type = Math.floor(Math.random() * 6)
       sharp = document.createElement('div')
       sharp.classList.add('sharp')
-      switch (type) {
-        case 0:
-          sharp.classList.add('O')
-          break
-        case 1:
-          sharp.classList.add('I')
-          break
-        case 2:
-          sharp.classList.add('Z')
-          break
-        case 3:
-          sharp.classList.add('S')
-          break
-        case 4:
-          sharp.classList.add('J')
-          break
-        case 5:
-          sharp.classList.add('L')
-          break
-        case 6:
-          sharp.classList.add('T')
-          break
-      }
+      sharp.classList.add('S') // ///////////////////////////
+      // switch (type) {
+      //   case 0:
+      //     sharp.classList.add('O')
+      //     break
+      //   case 1:
+      //     sharp.classList.add('I')
+      //     break
+      //   case 2:
+      //     sharp.classList.add('Z')
+      //     break
+      //   case 3:
+      //     sharp.classList.add('S')
+      //     break
+      //   case 4:
+      //     sharp.classList.add('J')
+      //     break
+      //   case 5:
+      //     sharp.classList.add('L')
+      //     break
+      //   case 6:
+      //     sharp.classList.add('T')
+      //     break
+      // }
+      type = 3 // ////////////////////////
       view.appendChild(sharp)
       sharp.style.top = '0px'
-      const sharpper = [sharp, type]
-      return sharpper
+      this.sharpper = [sharp, type]
     },
-    // 设置下周围
-    downRound (sharp, type) {
+    // 设置下周围元素
+    downRound () {
+      const sharpper = this.sharpper
+      const sharp = sharpper[0]
+      const type = sharpper[1]
       const left = sharp.offsetLeft + 37.5
-      const top = sharp.offsetTop + sharp.clientHeight
+      const top = sharp.offsetTop
       const round = []
-
       switch (type) {
         case 0:
           // 设置O形周围
@@ -111,41 +116,61 @@ export default {
           break
         case 1:
           // 设置I形周围
-          round.push(document.elementFromPoint(left, top + 15).className)
+          round.push(document.elementFromPoint(left, top + 135).className)
+          break
+        case 1090:
+          // 设置I形周围
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
+          round.push(document.elementFromPoint(left - 75, top + 45).className)
+          round.push(document.elementFromPoint(left - 105, top + 45).className)
           break
         case 2:
           // 设置Z形周围
-          round.push(document.elementFromPoint(left + 15, top + 15).className)
-          round.push(document.elementFromPoint(left + 45, top + 45).className)
-          round.push(document.elementFromPoint(left + 75, top + 45).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 75).className)
+          round.push(document.elementFromPoint(left + 75, top + 75).className)
+          break
+        case 2090:
+          // 设置Z90形周围
+          round.push(document.elementFromPoint(left - 15, top + 75).className)
+          round.push(document.elementFromPoint(left - 45, top + 105).className)
           break
         case 3:
           // 设置S形周围
-          round.push(document.elementFromPoint(left - 15, top + 45).className)
-          round.push(document.elementFromPoint(left + 15, top + 45).className)
-          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 75).className)
+          round.push(document.elementFromPoint(left + 15, top + 75).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          break
+        case 3090:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 75).className)
           break
         case 4:
           // 设置J形周围
-          round.push(document.elementFromPoint(left - 15, top + 15).className)
-          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 105).className)
+          round.push(document.elementFromPoint(left + 15, top + 105).className)
           break
         case 5:
           // 设置L形周围
-          round.push(document.elementFromPoint(left + 15, top + 15).className)
-          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 105).className)
+          round.push(document.elementFromPoint(left + 45, top + 105).className)
           break
         case 6:
           // 设置T形周围
-          round.push(document.elementFromPoint(left + 15, top + 15).className)
-          round.push(document.elementFromPoint(left + 45, top + 15).className)
-          round.push(document.elementFromPoint(left + 75, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 75, top + 45).className)
           break
       }
       return round
     },
-    // 设置左周围
-    leftRound (sharp, type) {
+    // 设置左周围元素
+    leftRound () {
+      const sharpper = this.sharpper
+      const sharp = sharpper[0]
+      const type = sharpper[1]
       const left = sharp.offsetLeft + 37.5
       const top = sharp.offsetTop
       const round = []
@@ -163,14 +188,30 @@ export default {
           round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 75).className)
           round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 105).className)
           break
+        case 1090:
+          // 设置I90形周围
+          round.push(document.elementFromPoint(left - 135, top + 15).className)
+          break
         case 2:
           // 设置Z形周围
           round.push(document.elementFromPoint(left - 15, top + 15).className)
           round.push(document.elementFromPoint(left + 15, top + 45).className)
           break
+        case 2090:
+          // 设置Z90形周围
+          round.push(document.elementFromPoint(left - 45, top + 15).className)
+          round.push(document.elementFromPoint(left - 75, top + 45).className)
+          round.push(document.elementFromPoint(left - 75, top + 75).className)
+          break
         case 3:
           // 设置S形周围
           round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
+          break
+        case 3090:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left - 75, top - 15).className)
+          round.push(document.elementFromPoint(left - 75, top + 15).className)
           round.push(document.elementFromPoint(left - 45, top + 45).className)
           break
         case 4:
@@ -193,8 +234,11 @@ export default {
       }
       return round
     },
-    // 设置右周围
-    rightRound (sharp, type) {
+    // 设置右周围元素
+    rightRound () {
+      const sharpper = this.sharpper
+      const sharp = sharpper[0]
+      const type = sharpper[1]
       const left = sharp.offsetLeft + 37.5
       const top = sharp.offsetTop
       const round = []
@@ -212,15 +256,104 @@ export default {
           round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 75).className)
           round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 105).className)
           break
+        case 1090:
+          // 设置I90形周围
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          break
         case 2:
           // 设置Z形周围
           round.push(document.elementFromPoint(left + 75, top + 15).className)
           round.push(document.elementFromPoint(left + 105, top + 45).className)
           break
+        case 2090:
+          // 设置Z90形周围
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 75).className)
+          break
         case 3:
           // 设置S形周围
           round.push(document.elementFromPoint(left + 75, top + 15).className)
           round.push(document.elementFromPoint(left + 45, top + 45).className)
+          break
+        case 3090:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left - 15, top - 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
+          break
+        case 4:
+          // 设置J形周围
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 75).className)
+          break
+        case 5:
+          // 设置L形周围
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 75, top + 75).className)
+          break
+        case 6:
+          // 设置T形周围
+          round.push(document.elementFromPoint(left + 75, top - 15).className)
+          round.push(document.elementFromPoint(left + 105, top + 15).className)
+          break
+      }
+      return round
+    },
+    // 设置旋转占位元素
+    rotateRound () {
+      const sharpper = this.sharpper
+      const sharp = sharpper[0]
+      const type = sharpper[1]
+      const left = sharp.offsetLeft + 37.5
+      const top = sharp.offsetTop
+      const round = []
+
+      switch (type) {
+        case 0:
+          // 设置O形周围
+          break
+        case 1:
+          // 设置I形周围
+          round.push(document.elementFromPoint(left - 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left - 45, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left - 75, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left - 105, sharp.offsetTop + 15).className)
+          break
+        case 1090:
+          // 设置I形周围
+          round.push(document.elementFromPoint(left + 15, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left + 15, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left + 15, sharp.offsetTop + 75).className)
+          round.push(document.elementFromPoint(left + 15, sharp.offsetTop + 105).className)
+          break
+        case 2:
+          // 设置Z形周围
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left - 45, top + 75).className)
+          round.push(document.elementFromPoint(left - 45, top + 105).className)
+          break
+        case 2090:
+          // 设置Z90形周围
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 75, top + 45).className)
+          break
+        case 3:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left - 45, top - 15).className)
+          round.push(document.elementFromPoint(left - 45, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          break
+        case 3090:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
           break
         case 4:
           // 设置J形周围
@@ -243,12 +376,107 @@ export default {
       return round
     },
     // 监听键盘
-    keydown (sharpper) {
+    keydown () {
+      const sharpper = this.sharpper
       const _this = this
+      let ifR = true
+      let round
       document.onkeydown = function (e) {
         const key = window.event.keyCode
         if (key === 38) { // 上方向键
-          console.log(sharpper[0])
+          switch (sharpper[1]) {
+            case 0:
+              break
+            case 1:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(90deg)'
+                _this.sharpper[1] = 1090
+              }
+              break
+            case 1090:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(0deg)'
+                _this.sharpper[1] = 1
+              }
+              break
+            case 2:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(90deg)'
+                _this.sharpper[1] = 2090
+              }
+              break
+            case 2090:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(0deg)'
+                _this.sharpper[1] = 2
+                ifR = true
+              }
+              break
+            case 3:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              console.log(round)
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(90deg)'
+                _this.sharpper[1] = 3090
+              }
+              break
+            case 3090:
+              ifR = true
+              round = _this.rotateRound(sharpper[0], sharpper[1])
+              for (let index = 0; index < round.length; index++) {
+                if (round[index] !== 'view') {
+                  ifR = false
+                }
+              }
+              if (ifR) {
+                sharpper[0].style.transform = 'rotate(0deg)'
+                _this.sharpper[1] = 3
+              }
+              break
+            case 4:
+              console.log(sharpper)
+              break
+            case 5:
+              console.log(sharpper)
+              break
+            case 6:
+              console.log(sharpper)
+              break
+          }
         } else if (key === 37) { // 左方向键
           const round = _this.leftRound(sharpper[0], sharpper[1])
           let ifStop
@@ -269,24 +497,25 @@ export default {
             }
           }
           if (!ifStop) {
-            _this.right(sharpper[0])
+            _this.right()
           }
         }
       }
     },
     // 向下移动
-    down (sharpper) {
-      const sharp = sharpper[0]
-      sharp.style.top = sharp.offsetTop + 30 + 'px'
+    down () {
+      const sharp = this.sharpper[0]
+      this.sharpper[0].style.top = sharp.offsetTop + 30 + 'px'
     },
     // 向左移动
-    left (sharp) {
-      const left = sharp.offsetLeft
-      sharp.style.left = left - 30 + 'px'
+    left () {
+      const left = this.sharpper[0].offsetLeft
+      this.sharpper[0].style.left = left - 30 + 'px'
     },
-    right (sharp) {
-      const left = sharp.offsetLeft
-      sharp.style.left = left + 30 + 'px'
+    // 向右移动
+    right () {
+      const left = this.sharpper[0].offsetLeft
+      this.sharpper[0].style.left = left + 30 + 'px'
     }
   }
 }
