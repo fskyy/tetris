@@ -21,9 +21,13 @@ export default {
     }
   },
   mounted () {
-    this.start()
+    // this.start()
+    this.test()
   },
   methods: {
+    test () {
+
+    },
     start () {
       const sharpper = this.create()
       const sharp = sharpper[0]
@@ -64,9 +68,9 @@ export default {
     },
     // 创建方块
     create () {
-      var view = this.$refs.view
-      var sharp = ''
-      var type = Math.floor(Math.random() * 6)
+      const view = this.$refs.view
+      let sharp = ''
+      const type = Math.floor(Math.random() * 6)
       sharp = document.createElement('div')
       switch (type) {
         case 0:
@@ -98,44 +102,47 @@ export default {
     },
     // 设置下周围
     downRound (sharp, type) {
+      const left = sharp.offsetLeft + 37.5
+      const top = sharp.offsetTop + sharp.clientHeight
       const round = []
+
       switch (type) {
         case 0:
           // 设置O形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5, sharp.offsetTop + sharp.clientHeight + 1).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 67.5, sharp.offsetTop + sharp.clientHeight + 1).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
           break
         case 1:
           // 设置I形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5, sharp.offsetTop + sharp.clientHeight + 1).className)
+          round.push(document.elementFromPoint(left, top + 15).className)
           break
         case 2:
           // 设置Z形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 30, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15 + 60, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 75, top + 45).className)
           break
         case 3:
           // 设置S形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15 + 30).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
           break
         case 4:
           // 设置J形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
           break
         case 5:
           // 设置L形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
           break
         case 6:
           // 设置T形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 45, sharp.offsetTop + sharp.clientHeight + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 75, sharp.offsetTop + sharp.clientHeight + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 75, top + 15).className)
           break
       }
       return round
@@ -145,11 +152,12 @@ export default {
       const left = sharp.offsetLeft + 37.5
       const top = sharp.offsetTop
       const round = []
+
       switch (type) {
         case 0:
           // 设置O形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 15, top + 45).className)
           break
         case 1:
           // 设置I形周围
@@ -160,13 +168,13 @@ export default {
           break
         case 2:
           // 设置Z形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 + 15, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 15, top + 45).className)
           break
         case 3:
           // 设置S形周围
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 15, sharp.offsetTop + 15).className)
-          round.push(document.elementFromPoint(sharp.offsetLeft + 37.5 - 45, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left - 15, top + 15).className)
+          round.push(document.elementFromPoint(left - 45, top + 45).className)
           break
         case 4:
           // 设置J形周围
@@ -189,14 +197,77 @@ export default {
       return round
     },
     // 设置右周围
+    rightRound (sharp, type) {
+      const left = sharp.offsetLeft + 37.5
+      const top = sharp.offsetTop
+      const round = []
+
+      switch (type) {
+        case 0:
+          // 设置O形周围
+          round.push(document.elementFromPoint(left + 60 + 15, top + 15).className)
+          round.push(document.elementFromPoint(left + 60 + 15, top + 45).className)
+          break
+        case 1:
+          // 设置I形周围
+          round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 15).className)
+          round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 45).className)
+          round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 75).className)
+          round.push(document.elementFromPoint(left + 45, sharp.offsetTop + 105).className)
+          break
+        case 2:
+          // 设置Z形周围
+          round.push(document.elementFromPoint(left + 75, top + 15).className)
+          round.push(document.elementFromPoint(left + 105, top + 45).className)
+          break
+        case 3:
+          // 设置S形周围
+          round.push(document.elementFromPoint(left + 75, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          break
+        case 4:
+          // 设置J形周围
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 45, top + 75).className)
+          break
+        case 5:
+          // 设置L形周围
+          round.push(document.elementFromPoint(left + 45, top + 15).className)
+          round.push(document.elementFromPoint(left + 45, top + 45).className)
+          round.push(document.elementFromPoint(left + 75, top + 75).className)
+          break
+        case 6:
+          // 设置T形周围
+          round.push(document.elementFromPoint(left + 75, top - 15).className)
+          round.push(document.elementFromPoint(left + 105, top + 15).className)
+          break
+      }
+      return round
+    },
     // 监听键盘
     keydown (sharpper) {
       const _this = this
       document.onkeydown = function (e) {
         const key = window.event.keyCode
-        if (key === 38) {
-          console.log(sharpper[0])
-        } else if (key === 37) {
+        if (key === 38) { // 上方向键
+          switch (sharpper[1]) {
+            case 0:
+              break
+            case 1:
+              break
+            case 2:
+              break
+            case 3:
+              break
+            case 4:
+              break
+            case 5:
+              break
+            case 6:
+              break
+          }
+        } else if (key === 37) { // 左方向键
           const round = _this.leftRound(sharpper[0], sharpper[1])
           let ifStop
           for (let index = 0; index < round.length; index++) {
@@ -204,13 +275,20 @@ export default {
               ifStop = true
             }
           }
-          console.log(round)
           if (!ifStop) {
             _this.left(sharpper[0])
           }
-        } else if (key === 39) {
-          const left = sharpper[0].offsetLeft
-          sharpper[0].style.left = left + 30 + 'px'
+        } else if (key === 39) { // 右方向键
+          const round = _this.rightRound(sharpper[0], sharpper[1])
+          let ifStop
+          for (let index = 0; index < round.length; index++) {
+            if (round[index] !== 'view') {
+              ifStop = true
+            }
+          }
+          if (!ifStop) {
+            _this.right(sharpper[0])
+          }
         }
       }
     },
@@ -223,6 +301,10 @@ export default {
     left (sharp) {
       const left = sharp.offsetLeft
       sharp.style.left = left - 30 + 'px'
+    },
+    right (sharp) {
+      const left = sharp.offsetLeft
+      sharp.style.left = left + 30 + 'px'
     }
   }
 }
@@ -373,4 +455,6 @@ export default {
   left: 30px;
   background: purple;
 }
+.rotate90{}
+.rotate{}
 </style>
