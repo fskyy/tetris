@@ -1,11 +1,13 @@
 <template>
   <div class="full">
-    <div ref="point" class="point">用来定位当前坐标的方块</div>
     <div ref="table" id="table" class="table">
       <div
         ref="view"
         class="view">
       </div>
+    </div>
+    <div>
+      <button>开始游戏</button>
     </div>
   </div>
 </template>
@@ -13,16 +15,18 @@
 <script>
 export default {
   name: 'Table',
+
   data () {
     return {
       sharpper: []
     }
   },
+
   mounted () {
     this.start()
   },
-  methods: {
 
+  methods: {
     start () {
       this.create()
       const sharpper = this.sharpper
@@ -101,28 +105,20 @@ export default {
     },
     // 清楚最后一行
     clearLastRow () {
-      var fst = 0
-      for (let index = 0; index < 10; index++) {
-        if (document.elementFromPoint(52.5 + 30 * index, 585).className !== 'view') {
-          fst++
+      let rows = 0
+      for (let index = 0; index < 4; index++) {
+        for (let i = 0; i < 10; i++) {
+          if (document.elementFromPoint(52.5 + 30 * i, 585 - index * 30).className !== 'view') {
+            rows++
+          }
+        }
+        if (rows === 10) {
+          this.$refs.view.style.height = this.$refs.view.clientHeight + 30 + 'px'
+          document.getElementsByClassName('sharp').forEach(element => {
+            element.style.top = element.offsetTop + 30 + 'px'
+          })
         }
       }
-      // console.log()
-      if (fst === 10) {
-        // console.log('clear')
-        this.$refs.view.style.height = this.$refs.view.clientHeight + 30 + 'px'
-        document.getElementsByClassName('sharp').forEach(element => {
-          element.style.top = element.offsetTop + 30 + 'px'
-        })
-      }
-      // let abc = 0
-      // for (let index = 0; index < 10; index++) {
-      //   if (document.elementFromPoint(52.5 + 30 * index, 585).className !== 'view') {
-      //     abc++
-      //   }
-      //   index++
-      // }
-      // console.log(abc)
     },
     // 设置下周围元素
     downRound () {
