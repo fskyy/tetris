@@ -101,14 +101,14 @@ export default {
     },
     // 清楚最后一行
     clearLastRow () {
-      var number = 0
+      var fst = 0
       for (let index = 0; index < 10; index++) {
         if (document.elementFromPoint(52.5 + 30 * index, 585).className !== 'view') {
-          number++
+          fst++
         }
       }
       // console.log()
-      if (number === 10) {
+      if (fst === 10) {
         // console.log('clear')
         this.$refs.view.style.height = this.$refs.view.clientHeight + 30 + 'px'
         document.getElementsByClassName('sharp').forEach(element => {
@@ -947,6 +947,7 @@ export default {
   width: 300px;
   height: 600px;
   z-index: 99;
+  overflow: hidden;
 }
 .view{
   margin: auto;
