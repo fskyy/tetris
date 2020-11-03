@@ -29,6 +29,7 @@ export default {
   methods: {
     start () {
       this.create()
+      const view = this.$refs.view
       const sharpper = this.sharpper
       const sharp = sharpper[0]
       const type = sharpper[1]
@@ -61,10 +62,152 @@ export default {
           } else {
             ifmove = 0
             clearInterval(fall)
-            this.clearLastRow()
+            this.reDraw()
+            view.removeChild(this.sharpper[0])
+            this.clearFullRow()
             this.start()
           }
-        }, 250)
+        }, 200)
+      }
+    },
+    // 重新渲染方块
+    reDraw () {
+      // const view = this.$refs.view
+      const newSharp = []
+      const originLeft = this.sharpper[0].offsetLeft
+      const originTop = this.sharpper[0].offsetTop
+      switch (this.sharpper[1]) {
+        case 0:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft + 30, top: originTop })
+          newSharp.push({ left: originLeft + 30, top: originTop + 30 })
+          break
+        case 1:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft, top: originTop + 60 })
+          newSharp.push({ left: originLeft, top: originTop + 90 })
+          break
+        case 1090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 60, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop })
+          newSharp.push({ left: originLeft - 120, top: originTop })
+          break
+        case 2:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft + 30, top: originTop + 30 })
+          newSharp.push({ left: originLeft + 30, top: originTop })
+          newSharp.push({ left: originLeft + 60, top: originTop + 30 })
+          break
+        case 2090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 30, top: originTop + 30 })
+          newSharp.push({ left: originLeft - 60, top: originTop + 30 })
+          newSharp.push({ left: originLeft - 60, top: originTop + 60 })
+          break
+        case 3:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft + 30, top: originTop })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft - 30, top: originTop + 30 })
+          break
+        case 3090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 30, top: originTop + 30 })
+          newSharp.push({ left: originLeft - 60, top: originTop })
+          newSharp.push({ left: originLeft - 60, top: originTop - 30 })
+          break
+        case 4:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft, top: originTop + 60 })
+          newSharp.push({ left: originLeft - 30, top: originTop + 60 })
+          break
+        case 4090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 60, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop - 30 })
+          break
+        case 4180:
+          newSharp.push({ left: originLeft - 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft - 30, top: originTop - 60 })
+          newSharp.push({ left: originLeft - 30, top: originTop - 90 })
+          newSharp.push({ left: originLeft, top: originTop - 90 })
+          break
+        case 4270:
+          newSharp.push({ left: originLeft, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 60, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 60, top: originTop })
+          break
+        case 5:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft, top: originTop + 60 })
+          newSharp.push({ left: originLeft + 30, top: originTop + 60 })
+          break
+        case 5090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 60, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop + 30 })
+          break
+        case 5180:
+          newSharp.push({ left: originLeft - 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft - 30, top: originTop - 60 })
+          newSharp.push({ left: originLeft - 30, top: originTop - 90 })
+          newSharp.push({ left: originLeft - 60, top: originTop - 90 })
+          break
+        case 5270:
+          newSharp.push({ left: originLeft, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 60, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 60, top: originTop - 60 })
+          break
+        case 6:
+          newSharp.push({ left: originLeft, top: originTop })
+          newSharp.push({ left: originLeft + 30, top: originTop })
+          newSharp.push({ left: originLeft + 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft + 60, top: originTop })
+          break
+        case 6090:
+          newSharp.push({ left: originLeft - 30, top: originTop })
+          newSharp.push({ left: originLeft - 30, top: originTop + 30 })
+          newSharp.push({ left: originLeft, top: originTop + 30 })
+          newSharp.push({ left: originLeft - 30, top: originTop + 60 })
+          break
+        case 6180:
+          newSharp.push({ left: originLeft - 30, top: originTop - 30 })
+          newSharp.push({ left: originLeft - 60, top: originTop - 30 })
+          newSharp.push({ left: originLeft - 60, top: originTop })
+          newSharp.push({ left: originLeft - 90, top: originTop - 30 })
+          break
+        case 6270:
+          newSharp.push({ left: originLeft, top: originTop - 30 })
+          newSharp.push({ left: originLeft, top: originTop - 60 })
+          newSharp.push({ left: originLeft - 30, top: originTop - 60 })
+          newSharp.push({ left: originLeft, top: originTop - 90 })
+          break
+      }
+      this.draw(newSharp)
+    },
+    // 渲染方块
+    draw (newSharp) {
+      const view = this.$refs.view
+      const square = []
+      square[0] = document.createElement('div')
+      square[1] = document.createElement('div')
+      square[2] = document.createElement('div')
+      square[3] = document.createElement('div')
+      for (let index = 0; index < 4; index++) {
+        square[index].style.background = 'grey'
+        square[index].classList.add('square')
+        square[index].style.left = newSharp[index].left + 'px'
+        square[index].style.top = newSharp[index].top + 'px'
+        view.appendChild(square[index])
       }
     },
     // 创建方块
@@ -72,6 +215,7 @@ export default {
       const view = this.$refs.view
       let sharp = ''
       var type = Math.floor(Math.random() * 6)
+      // type = 6
       sharp = document.createElement('div')
       sharp.classList.add('sharp')
       switch (type) {
@@ -101,20 +245,27 @@ export default {
       sharp.style.top = '0px'
       this.sharpper = [sharp, type]
     },
-    // 清楚最后一行
-    clearLastRow () {
-      let rows = 0
-      for (let index = 0; index < 4; index++) {
+    // 清楚满行
+    clearFullRow () {
+      const rows = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      var squareGroup
+      // *
+      for (let index = 0; index < 18; index++) {
         for (let i = 0; i < 10; i++) {
-          if (document.elementFromPoint(52.5 + 30 * i, 585 - index * 30).className !== 'view') {
-            rows++
+          if (document.elementFromPoint(52.5 + 30 * i, 585 - 30 * index).className !== 'view') {
+            rows[index]++
           }
         }
-        if (rows === 10) {
-          this.$refs.view.style.height = this.$refs.view.clientHeight + 30 + 'px'
-          document.getElementsByClassName('sharp').forEach(element => {
-            element.style.top = element.offsetTop + 30 + 'px'
+        if (rows[index] === 10) {
+          squareGroup = document.getElementsByClassName('square')
+          squareGroup.forEach(element => {
+            if (element.offsetTop === 570 - 30 * index) {
+              element.style.top = '630px'
+            } else if (element.offsetTop < 570 - 30 * index) {
+              element.style.top = element.offsetTop + 30 + 'px'
+            }
           })
+          rows[index] = 0
         }
       }
     },
@@ -955,6 +1106,11 @@ export default {
   top: 0;
   left:120px;
   transform-origin: 0 0;
+}
+.square{
+  position: absolute;
+  width: 30px;
+  height: 30px;
 }
 /* ****************************************************************************************** */
 .O{
