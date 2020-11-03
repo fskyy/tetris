@@ -72,7 +72,6 @@ export default {
       const view = this.$refs.view
       let sharp = ''
       var type = Math.floor(Math.random() * 6)
-      type = 0 // test
       sharp = document.createElement('div')
       sharp.classList.add('sharp')
       switch (type) {
@@ -98,7 +97,6 @@ export default {
           sharp.classList.add('T')
           break
       }
-      // type = 6 // ////////////////////////
       view.appendChild(sharp)
       sharp.style.top = '0px'
       this.sharpper = [sharp, type]
@@ -312,7 +310,7 @@ export default {
           round.push(document.elementFromPoint(left - 45, top - 75).className)
           break
         case 4270:
-          // 设置 J270 形周围 写到这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+          // 设置 J270 形周围
           round.push(document.elementFromPoint(left - 15, top - 15).className)
           round.push(document.elementFromPoint(left + 45, top + 15).className)
           break
