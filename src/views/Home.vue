@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <router-link to="/table">开始游戏</router-link>
+    <router-link class="btn" to="/table">俄罗斯方块</router-link>
+    <router-link class="btn" to="/table">贪吃蛇</router-link>
   </div>
 </template>
 
@@ -13,3 +14,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.btn{
+  display: block;
+}
+</style>

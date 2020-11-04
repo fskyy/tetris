@@ -6,7 +6,7 @@
         class="view">
       </div>
     </div>
-    <div>
+    <div class="GUI">
       <button>开始游戏</button>
     </div>
   </div>
